@@ -24,7 +24,7 @@
 	// "forwardPorts": [],
 
 	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bun i"
+	"postCreateCommand": "bun i && git submodule update --init --recursive"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
