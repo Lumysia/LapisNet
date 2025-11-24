@@ -1,0 +1,43 @@
+name: Rust & Frontend Formatting
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  format_check:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt
+          
+      - name: Auto-Format Rust code
+        run: cargo fmt --all
+        working-directory: ./src-tauri
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Install Dependencies with Bun
+        run: bun install
+        
+      - name: Auto-Format Frontend
+        run: bunx prettier . --write
+      
+      - name: Commit and Push Formatted Changes
+        uses: stefanzweifel/git-auto-commit-action@v7
