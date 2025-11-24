@@ -35,9 +35,14 @@ jobs:
 
       - name: Install Dependencies with Bun
         run: bun install
+      
+      - name: Create/Append .prettierignore
+        run: |
+          echo ".github" >> .prettierignore
+          echo "src-tauri/target" >> .prettierignore
         
       - name: Auto-Format Frontend
-        run: bunx prettier . --write
+        run: bunx prettier . --write --ignore-path .prettierignore
       
       - name: Commit and Push Formatted Changes
         uses: stefanzweifel/git-auto-commit-action@v7
