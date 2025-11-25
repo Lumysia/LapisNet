@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  format_check:
+  lint-and-format:
     runs-on: ubuntu-latest
 
     permissions:
@@ -20,12 +20,27 @@ jobs:
         uses: actions/checkout@v5
         with:
           ref: ${{ github.head_ref }}
+          submodules: recursive
+
+      - name: Install dependencies (Ubuntu)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf protobuf-compiler
 
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt
-          
+          components: rustfmt, clippy
+
+      - name: Rust cache
+        uses: swatinem/rust-cache@v2
+        with:
+          workspaces: './src-tauri -> target'
+
+      - name: Check Rust Syntax
+        run: cargo clippy -- -D warnings
+        working-directory: ./src-tauri
+
       - name: Auto-Format Rust code
         run: cargo fmt --all
         working-directory: ./src-tauri
@@ -37,9 +52,9 @@ jobs:
 
       - name: Install Dependencies with Bun
         run: bun install
-        
+
       - name: Auto-Format Frontend
         run: bunx prettier . --write --ignore-path .prettierignore
-      
+
       - name: Commit and Push Formatted Changes
         uses: stefanzweifel/git-auto-commit-action@v7
