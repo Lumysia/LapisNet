@@ -24,8 +24,12 @@ jobs:
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
         with:
-          components: rustfmt
-          
+          components: rustfmt, clippy
+
+      - name: Check Rust Syntax
+        run: cargo clippy -- -D warnings
+        working-directory: ./src-tauri
+
       - name: Auto-Format Rust code
         run: cargo fmt --all
         working-directory: ./src-tauri
