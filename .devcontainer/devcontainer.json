@@ -1,53 +1,50 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the
 // README at: https://github.com/devcontainers/templates/tree/main/src/rust
 {
-	"name": "Tauri Dev",
-	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
-	"image": "mcr.microsoft.com/devcontainers/rust:2-bookworm",
+  "name": "Tauri Dev",
+  // Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+  "image": "mcr.microsoft.com/devcontainers/rust:2-bookworm",
 
-	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 
-	// Use 'mounts' to make the cargo cache persistent in a Docker Volume.
-	// "mounts": [
-	// 	{
-	// 		"source": "devcontainer-cargo-cache-${devcontainerId}",
-	// 		"target": "/usr/local/cargo",
-	// 		"type": "volume"
-	// 	}
-	// ]
+  // Use 'mounts' to make the cargo cache persistent in a Docker Volume.
+  // "mounts": [
+  // 	{
+  // 		"source": "devcontainer-cargo-cache-${devcontainerId}",
+  // 		"target": "/usr/local/cargo",
+  // 		"type": "volume"
+  // 	}
+  // ]
 
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	"features": {
-		"ghcr.io/devcontainers/features/node:1": {},
-		"ghcr.io/devcontainer-community/devcontainer-features/bun.sh:1": {},
-		"ghcr.io/devcontainers/features/desktop-lite:1": {}
-	},
+  // Features to add to the dev container. More info: https://containers.dev/features.
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": {},
+    "ghcr.io/devcontainer-community/devcontainer-features/bun.sh:1": {},
+    "ghcr.io/devcontainers/features/desktop-lite:1": {}
+  },
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	"forwardPorts": [6080],
-	"portsAttributes": {
-	    "6080": {
-	      "label": "desktop"
-	    }
-	},
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  "forwardPorts": [6080],
+  "portsAttributes": {
+    "6080": {
+      "label": "desktop"
+    }
+  },
 
-	"updateContentCommand": "sudo apt update && sudo apt install -y build-essential curl wget file libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev libwebkit2gtk-4.1-dev libclang-dev protobuf-compiler",
-	
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "bun i && git submodule update --init --recursive",
+  "updateContentCommand": "sudo apt update && sudo apt install -y build-essential curl wget file libssl-dev libgtk-3-dev libayatana-appindicator3-dev librsvg2-dev libwebkit2gtk-4.1-dev libclang-dev protobuf-compiler",
 
-	// Configure tool-specific properties.
-	// "customizations": {},
+  // Use 'postCreateCommand' to run commands after the container is created.
+  "postCreateCommand": "bun i && git submodule update --init --recursive",
 
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
-	"remoteUser": "root",
+  // Configure tool-specific properties.
+  // "customizations": {},
 
-	"customizations": {
-		"vscode": {
-			"extensions": [
-				"tauri-apps.tauri-vscode",
-				"rust-lang.rust-analyzer"
-			]
-		}
-	},
+  // Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+  "remoteUser": "root",
+
+  "customizations": {
+    "vscode": {
+      "extensions": ["tauri-apps.tauri-vscode", "rust-lang.rust-analyzer"]
+    }
+  }
 }
