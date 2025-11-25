@@ -9,7 +9,7 @@ on:
       - main
 
 jobs:
-  format_check:
+  lint-and-format:
     runs-on: ubuntu-latest
 
     permissions:
